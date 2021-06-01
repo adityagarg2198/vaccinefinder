@@ -45,7 +45,10 @@ const useStyles=makeStyles({
     },
     innerbox:{
         marginBottom:'2%',
-    }
+    },
+    span:{
+        color:'#ff4d4d',
+    },
 })
 
 
@@ -122,17 +125,17 @@ const Find = () => {
                                         <Grid container >
                                         <Grid item xs={6} className={classes.box} >
                                             <h2 className={classes.head}>Center Details</h2>
-                                            <p className={classes.content}>Center Name: {session.name}</p>
-                                            <p className={classes.content}>Center Address: {session.address}</p>
-                                            <p className={classes.content}>Available Capacity: {session.available_capacity}</p>
-                                            <p className={classes.content}>Fee: {session.fee}</p>
-                                            <p className={classes.content}>Age: {session.min_age_limit}</p>
+                                            <p className={classes.content}><span className={classes.span}>Center Name:</span> {session.name}</p>
+                                            <p className={classes.content}><span className={classes.span}>Center Address:</span> {session.address}</p>
+                                            <p className={classes.content}><span className={classes.span}>Available Capacity:</span> {session.available_capacity}</p>
+                                            <p className={classes.content}><span className={classes.span}>Fee:</span> {session.fee}</p>
+                                            <p className={classes.content}><span className={classes.span}>Age:</span> {session.min_age_limit}</p>
                                         </Grid>
                                         <Grid item xs={6} className={classes.box}>
                                             <h2 className={classes.head}>Vaccine Details</h2>
-                                            <p className={classes.content}>Vaccine Name: {session.vaccine}</p>
+                                            <p className={classes.content}><span className={classes.span}>Vaccine Name:</span> {session.vaccine}</p>
                                             {session.slots.map(slot=>{
-                                                return <p className={classes.content}>Slot: {slot}</p>
+                                                return <p className={classes.content}><span className={classes.span}>Slot:</span> {slot}</p>
                                             })}
                                         </Grid>
                                         </Grid>
