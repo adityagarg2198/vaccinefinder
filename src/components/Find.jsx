@@ -3,17 +3,16 @@ import {Box,Paper,makeStyles,Button,Grid} from '@material-ui/core';
 import InputBox from './InputBox';
 import {useHistory} from 'react-router-dom';
 
-
-const useStyles=makeStyles({
+const array=["No","Data","Found"];
+const useStyles=makeStyles((theme)=>({
     bg:{
-        background: 'linear-gradient(to top, #FFFFFF 0%, #FF3300 80%)',
+        background: 'linear-gradient(to top, #FFFFFF 0%, #FF3300 40%)',
         minHeight:'100vh',
         
     },
     pin:{
-        width:'20%',
         margin:'0 auto 2% auto',
-        padding:'2% 5%',
+        padding:'5% 5%',
         alignItems:'center',
     },
     btn:{
@@ -26,22 +25,35 @@ const useStyles=makeStyles({
         padding:'3%',
     },
     outerbox:{
-        width:'90%',
+        width:'100%',
         margin:'0 auto 0 auto',
     },
     head:{
         textAlign:'center',
         color:'#FF3300',
         fontFamily:'Montserrat',
-        fontSize:'3rem',
+        fontSize:'2.7rem',
+        marginBottom:'5%',
+        [theme.breakpoints.down('sm')]: {
+            fontSize:'2.5rem',
+          },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:'1.8rem',
+          },
     },
     content:{
         textAlign:'left',
         color:'#4d0000',
         fontFamily:'Montserrat',
-        fontSize:'2rem',
+        fontSize:'1.8rem',
         marginLeft:'10%',
         marginBottom:'2%',
+        [theme.breakpoints.down('sm')]: {
+            fontSize:'1.5rem',
+          },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:'1rem',
+          },
     },
     innerbox:{
         marginBottom:'2%',
@@ -49,7 +61,20 @@ const useStyles=makeStyles({
     span:{
         color:'#ff4d4d',
     },
-})
+    msg:{
+        textAlign:'center',
+        color:'white',
+        fontFamily:'Montserrat',
+        fontSize:'2.5rem',
+        marginBottom:'2%',
+        [theme.breakpoints.down('sm')]: {
+            fontSize:'2rem',
+          },
+        [theme.breakpoints.down('xs')]: {
+            fontSize:'1.5rem',
+          },
+    }
+}));
 
 
 
@@ -62,6 +87,7 @@ const Find = () => {
         date:"",
     });
     const [vdata,setVdata]=useState([]);
+    
 
     let name,value;
     const handledata=(e)=>{
@@ -105,25 +131,31 @@ const Find = () => {
             console.log(err);
         }
     }
+    let bool=true;
+    if(vdata.length===0)
+    {
+        bool=false;
+    }
 
     return (
         <>  
             <div className={classes.bg}>
-            <Box >
-                <Paper className={classes.pin}>
-                    <InputBox type="text" name="pin" value={inputdata.pin} func={handledata} title="Enter Pincode" req="true"/>
-                    <InputBox type="text" name="date" value={inputdata.date} func={handledata} title="Enter Date in dd-mm-yyyy" req="true"/>
-                    <Button onClick={query} className={classes.btn}>GO</Button>
-                </Paper>
-            </Box>
-            {
-                
-                vdata.map(session=>{
-                    return <Grid container spacing={3} className={classes.outerbox}>
+            <Grid container >
+                <Grid item xs={12} sm={12} md={6} className={classes.pin}>
+                    <Paper className={classes.pin} >
+                        <InputBox type="text" name="pin" value={inputdata.pin} func={handledata} title="Enter Pincode" req="true"/>
+                        <InputBox type="text" name="date" value={inputdata.date} func={handledata} title="Enter Date in dd-mm-yyyy" req="true"/>
+                        <Button onClick={query} className={classes.btn}>GO</Button>
+                    </Paper>
+                </Grid>
+            </Grid>
+            {  
+                bool?vdata.map(session=>{
+                        return <Grid container spacing={3} className={classes.outerbox}>
                                   <Grid item xs={12} className={classes.innerbox} >  
                                     <Paper>
-                                        <Grid container >
-                                        <Grid item xs={6} className={classes.box} >
+                                        <Grid container>
+                                        <Grid item xs={12} sm={12} md={7} className={classes.box} >
                                             <h2 className={classes.head}>Center Details</h2>
                                             <p className={classes.content}><span className={classes.span}>Center Name:</span> {session.name}</p>
                                             <p className={classes.content}><span className={classes.span}>Center Address:</span> {session.address}</p>
@@ -131,7 +163,7 @@ const Find = () => {
                                             <p className={classes.content}><span className={classes.span}>Fee:</span> {session.fee}</p>
                                             <p className={classes.content}><span className={classes.span}>Age:</span> {session.min_age_limit}</p>
                                         </Grid>
-                                        <Grid item xs={6} className={classes.box}>
+                                        <Grid item xs={12} sm={12} md={5} className={classes.box}>
                                             <h2 className={classes.head}>Vaccine Details</h2>
                                             <p className={classes.content}><span className={classes.span}>Vaccine Name:</span> {session.vaccine}</p>
                                             {session.slots.map(slot=>{
@@ -142,7 +174,7 @@ const Find = () => {
                                     </Paper>
                                   </Grid>  
                                </Grid>
-                        })
+                    }):<p className={classes.msg}>No data</p>
                 }
                 
             </div>
