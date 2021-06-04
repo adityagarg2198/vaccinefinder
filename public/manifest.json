@@ -3,7 +3,7 @@
     "short_name": "Vaccine Finder",
     "theme_color": "#ff3300",
     "background_color": "#ff3300",
-    "display": "standalone",
+    "display": "fullscreen",
     "scope": "/",
     "start_url": "/",
     "icons":[
